@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luxora</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      .font-abril {
+        font-family: "Abril Fatface", cursive;
+      }
+    </style>
+  </head>
+
+  <body class="bg-gray-50 text-gray-800">
+    <!------------------------------------------- Header------------------------ -->
+    <header
+      class="bg-white shadow-md py-4 px-6 flex justify-between items-center sticky top-0 z-50"
+    >
+      <h1 class="font-abril text-4xl md:text-5xl text-gray-800">Luxora</h1>
+
+      <!------------------------------------------- Search (unchanged UI)------------------------ -->
+      <div class="flex-1 max-w-lg mx-6 hidden md:block">
+        <div
+          class="relative flex items-center gap-2 px-3 py-1 w-full border rounded-2xl focus-within:ring-2 focus-within:ring-blue-500"
+        >
+          <button class="text-gray-500">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+          <input
+            class="outline-none w-full px-1"
+            type="text"
+            placeholder="What are you looking for?"
+          />
+        </div>
+      </div>
+
+      <!------------------------------------------- Nav (desktop)------------------------ -->
+      <nav
+        class="hidden md:flex items-center space-x-6 text-gray-600 font-medium"
+      >
+        <a href="index.html#about" class="hover:text-blue-600">Home</a>
+        <a href="index.html#featured" class="hover:text-blue-600">Shop</a>
+        <a href="index.html#about" class="hover:text-blue-600">About</a>
+        <a href="index.html#contact" class="hover:text-blue-600">Contact</a>
+      </nav>
+
+      <!------------------------------------------- Icons------------------------ -->
+      <div class="flex items-center gap-6 text-gray-700">
+        <a href="cart.html" class="relative hover:text-blue-600">
+          <i class="fa-solid fa-cart-shopping text-lg"></i>
+          <span
+            id="cart-count"
+            class="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full"
+            >0</span
+          >
+        </a>
+        <a href="login.html" class="hover:text-blue-600">
+          <i class="fa-solid fa-user text-lg"></i>
+        </a>
+      </div>
+
+      <button id="menu-btn" class="md:hidden text-gray-700">
+        <i class="fas fa-bars text-2xl"></i>
+      </button>
+    </header>
+
+    <!------------------------------------------- Mobile Menu------------------------ -->
+    <div
+      id="mobile-menu"
+      class="hidden bg-white shadow-lg px-6 py-4 space-y-3 md:hidden"
+    >
+      <a
+        href="index.html#about"
+        class="block hover:text-blue-600"
+        onclick="closeMobileMenu()"
+        >Home</a
+      >
+      <a
+        href="index.html#featured"
+        class="block hover:text-blue-600"
+        onclick="closeMobileMenu()"
+        >Shop</a
+      >
+      <a
+        href="index.html#about"
+        class="block hover:text-blue-600"
+        onclick="closeMobileMenu()"
+        >About</a
+      >
+      <a
+        href="index.html#contact"
+        class="block hover:text-blue-600"
+        onclick="closeMobileMenu()"
+        >Contact</a
+      >
+    </div>
+
+    <!------------------------------------------- Main Content------------------------ -->
+    <main class="container mx-auto px-4 py-8">
+      <!------------------------------------------- Hero Section------------------------ -->
+      <section
+        id="about"
+        class="flex flex-col md:flex-row items-center gap-8 rounded-lg overflow-hidden bg-gray-900 text-white"
+      >
+        <div class="md:w-1/2 h-64 md:h-96 overflow-hidden">
+          <img
+            src="assets/studio-shot-product-images.jpg"
+            alt="Luxora Fashion"
+            class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+          />
+        </div>
+        <div class="md:w-1/2 p-6 text-center md:text-left">
+          <h2 class="text-3xl md:text-5xl font-bold mb-4">
+            Discover Elegance. Redefine Style
+          </h2>
+          <p class="mb-6 hidden md:block text-sm md:text-base">
+            At Luxora, we believe fashion is more than fabric — it's confidence,
+            expression, and grace. Explore our curated collection of timeless
+            apparel, handcrafted jewelry, and premium essentials designed to
+            elevate every moment.
+            <br /><br />
+            <em>Where luxury meets everyday elegance</em>
+          </p>
+          <a
+            href="index.html#featured"
+            class="inline-block h-10 w-36 bg-white text-black rounded-3xl hover:bg-gray-800 hover:text-white transition text-center leading-10"
+            >Shop Now</a
+          >
+        </div>
+      </section>
+
+      <!------------------------------------------- Intro------------------------ -->
+      <section class="flex flex-wrap items-center justify-between mt-12">
+        <p class="text-sm md:text-lg pt-5 max-w-3xl">
+          Luxora was born from a passion for beauty, balance, and bold
+          individuality. We blend minimalist design with rich textures and
+          thoughtful details to create pieces that don't just look good —
+          <i>they feel like you</i>.
+        </p>
+        <a
+          href="index.html#featured"
+          class="h-10 w-32 mt-4 md:mt-0 cursor-pointer rounded-3xl bg-black text-white hover:bg-gray-800 transition inline-flex items-center justify-center"
+          >Shop Now</a
+        >
+      </section>
+
+      <!------------------------------------------- Featured Products------------------------ -->
+      <div id="featured" class="mt-12">
+        <h3 class="text-2xl font-semibold">Featured Products</h3>
+        <p class="text-gray-600 mt-2">Explore our latest collection</p>
+      </div>
+
+      <div
+        id="product-list"
+        class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+      ></div>
+
+      <!------------------------------------------- Category Buttons (UI unchanged)------------------------ -->
+      <!------------------------------------------- <div class="mt-6 flex flex-wrap gap-4">
+        <button
+          class="px-6 py-1 border bg-gray-200 rounded hover:bg-black hover:text-white transition"
+        >
+          Electronics
+        </button>
+        <button
+          class="px-6 py-1 border bg-gray-200 rounded hover:bg-black hover:text-white transition"
+        >
+          Clothing
+        </button>
+        <button
+          class="px-6 py-1 border bg-gray-200 rounded hover:bg-black hover:text-white transition"
+        >
+          Discount Deals
+        </button>
+        <button
+          class="px-6 py-1 border bg-gray-200 rounded hover:bg-black hover:text-white transition"
+        >
+          Jewelries
+        </button>
+      </div>
+------------------------ -->
+      <!------------------------------------------- Why Choose Us / Contact------------------------ -->
+      <section
+        id="contact"
+        class="bg-gray-900 w-full rounded-2xl mt-10 overflow-hidden"
+      >
+        <div class="flex flex-col md:flex-row items-center">
+          <div class="md:w-1/2 w-full p-6 md:p-8 text-white">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">
+              ✨ Why Choose Us
+            </h2>
+            <p class="text-sm md:text-base leading-relaxed">
+              At Luxora, we believe true style isn't just seen — it's felt.
+              That's why we go beyond trends to deliver exceptional quality,
+              thoughtful design, and a seamless shopping experience from the
+              first click to your doorstep.
+              <br /><br />
+              We curate every product with care, source from trusted creators,
+              and ensure every detail — from packaging to support — reflects the
+              elegance you deserve.
+            </p>
+          </div>
+          <div class="md:w-1/2 w-full h-64 md:h-80">
+            <img
+              src="assets/surface-S_YOuAUMm2o-unsplash.jpg"
+              alt="Why Choose Us"
+              class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+            />
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!------------------------------------------- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+      <div class="text-center">
+        &copy; 2025 Click&Cart. All rights reserved.
+      </div>
+    </footer>
+
+    <!------------------------------------------- Script------------------------ -->
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout | Luxora</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Lato:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      .font-abril {
+        font-family: "Abril Fatface", cursive;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <!------------------------------------- Header -------------------------------------->
+    <header
+      class="bg-white shadow-md py-4 px-6 flex justify-between items-center sticky top-0 z-50"
+    >
+      <h1 class="font-abril text-4xl md:text-5xl text-gray-800">Luxora</h1>
+      <button id="menu-btn" class="md:hidden text-gray-700">
+        <i class="fas fa-bars text-2xl"></i>
+      </button>
+    </header>
+
+    <!------------------------------------- Mobile Menu -------------------------------------->
+    <div id="mobile-menu" class="hidden bg-white shadow-lg px-6 py-4 md:hidden">
+      <a href="index.html" class="block py-2">Home</a>
+      <a href="product.html" class="block py-2">Shop</a>
+      <a href="cart.html" class="block py-2">Cart</a>
+    </div>
+
+    <!------------------------------------- Checkout -------------------------------------->
+    <main class="container mx-auto px-6 py-12 max-w-4xl">
+      <h2 class="text-3xl font-semibold mb-8">Checkout</h2>
+      <div class="bg-white p-8 rounded-lg shadow">
+        <h3 class="text-xl font-semibold mb-6">Order Summary</h3>
+        <div id="checkout-items" class="space-y-4 mb-6"></div>
+        <div class="border-t pt-4 font-bold">
+          Total: $<span id="checkout-total">0.00</span>
+        </div>
+        <h3 class="text-xl font-semibold mt-8 mb-4">Shipping Information</h3>
+        <form id="checkout-form" class="space-y-4">
+          <input
+            type="text"
+            placeholder="Full Name"
+            required
+            class="w-full p-3 border rounded"
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            required
+            class="w-full p-3 border rounded"
+          />
+          <input
+            type="text"
+            placeholder="Address"
+            required
+            class="w-full p-3 border rounded"
+          />
+          <input
+            type="text"
+            placeholder="City"
+            required
+            class="w-full p-3 border rounded"
+          />
+          <input
+            type="text"
+            placeholder="Postal Code"
+            required
+            class="w-full p-3 border rounded"
+          />
+          <button
+            type="submit"
+            class="w-full bg-gray-800 text-white py-3 rounded hover:bg-gray-700"
+          >
+            Place Order
+          </button>
+        </form>
+      </div>
+    </main>
+
+    <!------------------------------------- Footer -------------------------------------->
+    <footer class="bg-gray-800 text-white py-8 mt-12 text-center">
+      &copy; 2025 Click&Cart. All rights reserved.
+    </footer>
+
+    <!------------------------------------- Scripts -------------------------------------->
+    <script src="script.js"></script>
+  </body>
+</html>
