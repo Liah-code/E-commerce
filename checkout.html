@@ -43,12 +43,19 @@
     <main class="container mx-auto px-6 py-12 max-w-4xl">
       <h2 class="text-3xl font-semibold mb-8">Checkout</h2>
       <div class="bg-white p-8 rounded-lg shadow">
+        <!-- Order Summary -->
         <h3 class="text-xl font-semibold mb-6">Order Summary</h3>
         <div id="checkout-items" class="space-y-4 mb-6"></div>
-        <div class="border-t pt-4 font-bold">
-          Total: $<span id="checkout-total">0.00</span>
+
+        <div class="border-t pt-4 text-lg">
+          <p>Subtotal: $<span id="checkout-subtotal">0.00</span></p>
+          <p class="font-bold mt-2">
+            Total: $<span id="checkout-total">0.00</span>
+          </p>
         </div>
-        <h3 class="text-xl font-semibold mt-8 mb-4">Shipping Information</h3>
+
+        <!-- Billing Information -->
+        <h3 class="text-xl font-semibold mt-8 mb-4">Billing Information</h3>
         <form id="checkout-form" class="space-y-4">
           <input
             type="text"
@@ -63,23 +70,73 @@
             class="w-full p-3 border rounded"
           />
           <input
-            type="text"
-            placeholder="Address"
+            type="tel"
+            placeholder="Phone Number"
             required
             class="w-full p-3 border rounded"
+          />
+          <input
+            type="text"
+            placeholder="Billing Address"
+            required
+            class="w-full p-3 border rounded"
+          />
+
+          <!-- Shipping Info -->
+          <h3 class="text-xl font-semibold mt-8 mb-4">Shipping Information</h3>
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" id="sameAsBilling" />
+            <span>Same as billing address</span>
+          </label>
+          <input
+            type="text"
+            placeholder="Shipping Address"
+            class="w-full p-3 border rounded shipping-field"
           />
           <input
             type="text"
             placeholder="City"
+            class="w-full p-3 border rounded shipping-field"
+          />
+          <input
+            type="text"
+            placeholder="Postal Code"
+            class="w-full p-3 border rounded shipping-field"
+          />
+
+          <!-- Payment Info -->
+          <h3 class="text-xl font-semibold mt-8 mb-4">Payment Information</h3>
+          <input
+            type="text"
+            placeholder="Cardholder Name"
             required
             class="w-full p-3 border rounded"
           />
           <input
             type="text"
-            placeholder="Postal Code"
+            placeholder="Card Number"
+            maxlength="16"
             required
             class="w-full p-3 border rounded"
           />
+          <div class="flex gap-4">
+            <input
+              type="text"
+              placeholder="MM/YY"
+              maxlength="5"
+              required
+              class="w-1/2 p-3 border rounded"
+            />
+            <input
+              type="text"
+              placeholder="CVV"
+              maxlength="3"
+              required
+              class="w-1/2 p-3 border rounded"
+            />
+          </div>
+
+          <!-- Place Order -->
           <button
             type="submit"
             class="w-full bg-gray-800 text-white py-3 rounded hover:bg-gray-700"

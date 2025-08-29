@@ -28,7 +28,7 @@
     >
       <h1 class="font-abril text-4xl md:text-5xl text-gray-800">Luxora</h1>
       <div class="flex items-center gap-6 text-gray-700">
-        <a href="index.html" class="hover:text-blue-600">Back to Shop</a>
+        <a href="index.html" class="hover:text-gray-400">Back to Shop</a>
       </div>
       <button id="menu-btn" class="md:hidden text-gray-700">
         <i class="fas fa-bars text-2xl"></i>
@@ -41,6 +41,7 @@
       <a href="product.html" class="block py-2">Shop</a>
       <a href="cart.html" class="block py-2">Cart</a>
     </div>
+    <div id="cart-items" class="space-y-4"></div>
 
     <!----------------------------- Cart ------------------------------>
     <main class="container mx-auto px-6 py-12">
@@ -50,7 +51,13 @@
         Your cart is empty.
       </div>
       <div class="mt-10 flex justify-between items-center font-bold text-xl">
+        <div class="flex justify-between mb-2">
+          <span class="font-semibold">Subtotal: </span>
+          <span id="cart-subtotal">$0.00</span>
+        </div>
+
         <span>Total: $<span id="cart-total">0.00</span></span>
+
         <button
           onclick="location.href='checkout.html'"
           class="bg-gray-800 text-white px-8 py-3 rounded hover:bg-gray-700"

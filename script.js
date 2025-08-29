@@ -46,14 +46,12 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-//  Load Products (with category filter)
+//LOAD PRODUCTS 
 async function loadProducts(category = null) {
   try {
     let url = 'https://api.escuelajs.co/api/v1/products';
     const res = await fetch(url);
     let products = await res.json();
-
-    // Category filter
     if (category) {
       category = category.toLowerCase();
       products = products.filter(p => {
@@ -103,7 +101,7 @@ async function loadProducts(category = null) {
 }
 
 
-// Load Product Detail
+// LOAD PRODUCT DETAIL
 function loadProductDetail() {
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
@@ -134,7 +132,7 @@ function loadProductDetail() {
 }
 
 
-//  Add to Cart 
+// CART FUNCTIONS
 function addToCart(id, title, price, image) {
   const cart = JSON.parse(localStorage.getItem('cart') || '[]');
   cart.push({ id, title, price, image });
@@ -143,8 +141,6 @@ function addToCart(id, title, price, image) {
   alert(`${title} added to cart!`);
 }
 
-
-//  Update Cart Count 
 function updateCartCount() {
   const cart = JSON.parse(localStorage.getItem('cart') || '[]');
   const count = cart.length;
@@ -152,25 +148,29 @@ function updateCartCount() {
   if (elem) elem.textContent = count;
 }
 
-
-//  Render Cart
 function renderCart() {
   const cart = JSON.parse(localStorage.getItem('cart') || '[]');
   const container = document.getElementById('cart-items');
   const empty = document.getElementById('cart-empty');
+  const subtotalEl = document.getElementById('cart-subtotal');
   const totalEl = document.getElementById('cart-total');
 
+  if (!container) return; 
+
   if (cart.length === 0) {
+    container.innerHTML = '';
     empty.classList.remove('hidden');
+    if (subtotalEl) subtotalEl.textContent = '0.00';
+    if (totalEl) totalEl.textContent = '0.00';
     return;
   }
 
   empty.classList.add('hidden');
-  let total = 0;
+  let subtotal = 0;
   container.innerHTML = '';
+
   cart.forEach((item, index) => {
-    const itemTotal = item.price;
-    total += itemTotal;
+    subtotal += item.price;
     const el = document.createElement('div');
     el.className = 'flex items-center bg-white p-4 rounded shadow';
     el.innerHTML = `
@@ -179,17 +179,18 @@ function renderCart() {
            alt="${item.title}" class="w-16 h-16 object-cover rounded">
       <div class="ml-4 flex-1">
         <h3 class="font-semibold">${item.title}</h3>
-        <p>$${item.price}</p>
+        <p>$${item.price.toFixed(2)}</p>
       </div>
       <button onclick="removeFromCart(${index})" class="text-red-500 text-sm">Remove</button>
     `;
     container.appendChild(el);
   });
-  totalEl.textContent = total.toFixed(2);
+
+
+  if (subtotalEl) subtotalEl.textContent = subtotal.toFixed(2);
+  if (totalEl) totalEl.textContent = subtotal.toFixed(2);
 }
 
-
-// Remove from Cart
 function removeFromCart(index) {
   let cart = JSON.parse(localStorage.getItem('cart') || '[]');
   cart.splice(index, 1);
@@ -199,32 +200,37 @@ function removeFromCart(index) {
 }
 
 
-// Render Checkout 
+// CHECKOUT FUNCTIONS
 function renderCheckout() {
   const cart = JSON.parse(localStorage.getItem('cart') || '[]');
   const container = document.getElementById('checkout-items');
+  const subtotalEl = document.getElementById('checkout-subtotal');
   const totalEl = document.getElementById('checkout-total');
-  let total = 0;
+  let subtotal = 0;
 
   if (cart.length === 0) {
     container.innerHTML = '<p>Your cart is empty.</p>';
+    subtotalEl.textContent = '0.00';
     totalEl.textContent = '0.00';
     return;
   }
 
+  container.innerHTML = '';
   cart.forEach(item => {
-    total += item.price;
+    subtotal += item.price;
     const el = document.createElement('div');
     el.className = 'flex justify-between';
     el.textContent = `${item.title} = $${item.price.toFixed(2)}`;
     container.appendChild(el);
   });
 
-  totalEl.textContent = total.toFixed(2);
+  // Subtotal and Total 
+  subtotalEl.textContent = subtotal.toFixed(2);
+  totalEl.textContent = subtotal.toFixed(2);
 
   document.getElementById('checkout-form')?.addEventListener('submit', (e) => {
     e.preventDefault();
-    alert('Thank you for your order!');
+    alert('✅ Thank you for your order!');
     localStorage.removeItem('cart');
     location.href = 'index.html';
   });
