@@ -1,4 +1,4 @@
- document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
   updateCartCount();
 
   // Setup mobile menu
@@ -18,6 +18,15 @@
   // Load products on homepage
   if (document.getElementById('product-list')) {
     loadProducts();
+
+    // Attach category button handlers
+    const categoryButtons = document.querySelectorAll('#categories button');
+    categoryButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const category = btn.textContent.trim();
+        loadProducts(category);
+      });
+    });
   }
 
   // Load product detail
@@ -36,13 +45,34 @@
   }
 });
 
-//  Load Products 
-async function loadProducts() {
+
+//  Load Products (with category filter)
+async function loadProducts(category = null) {
   try {
-    const res = await fetch('https://api.escuelajs.co/api/v1/products');
-    const products = await res.json();
+    let url = 'https://api.escuelajs.co/api/v1/products';
+    const res = await fetch(url);
+    let products = await res.json();
+
+    // Category filter
+    if (category) {
+      category = category.toLowerCase();
+      products = products.filter(p => {
+        const catName = p.category?.name?.toLowerCase() || '';
+        if (category === 'electronics') return catName.includes('electronics');
+        if (category === 'clothing') return catName.includes('clothes');
+        if (category === 'jewelries') return catName.includes('jewel');
+        if (category === 'discount deals') return p.price < 50; // Example rule
+        return true;
+      });
+    }
+
     const container = document.getElementById('product-list');
     container.innerHTML = '';
+
+    if (products.length === 0) {
+      container.innerHTML = '<p class="col-span-full text-center py-6 text-gray-500">No products found.</p>';
+      return;
+    }
 
     products.slice(0, 8).forEach(product => {
       const price = product.price.toFixed(2);
@@ -51,11 +81,14 @@ async function loadProducts() {
       const el = document.createElement('div');
       el.className = 'bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition';
       el.innerHTML = `
-        <img src="${img}" alt="${product.title}" onerror="this.src='https://i.imgur.com/QkIa5tT.jpeg'" class="w-full h-64 object-cover">
+        <img src="${img}" alt="${product.title}" 
+          onerror="this.src='https://i.imgur.com/QkIa5tT.jpeg'" 
+          class="w-full h-64 object-cover">
         <div class="p-4">
           <h3 class="font-semibold">${product.title}</h3>
           <p class="text-gray-600 font-bold">$${price}</p>
-          <a href="product.html?id=${product.id}" class="mt-2 block bg-gray-900 text-white text-center py-2 rounded hover:bg-gray-800">
+          <a href="product.html?id=${product.id}" 
+             class="mt-2 block bg-gray-900 text-white text-center py-2 rounded hover:bg-gray-800">
             View Details
           </a>
         </div>
@@ -64,10 +97,11 @@ async function loadProducts() {
     });
   } catch (err) {
     console.error('Failed to load products:', err);
-    document.getElementById('product-list').innerHTML = '<p class="col-span-full text-center py-6 text-red-500">Failed to load products.</p>';
+    document.getElementById('product-list').innerHTML = 
+      '<p class="col-span-full text-center py-6 text-red-500">Failed to load products.</p>';
   }
-  
 }
+
 
 // Load Product Detail
 function loadProductDetail() {
@@ -99,6 +133,7 @@ function loadProductDetail() {
     });
 }
 
+
 //  Add to Cart 
 function addToCart(id, title, price, image) {
   const cart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -108,6 +143,7 @@ function addToCart(id, title, price, image) {
   alert(`${title} added to cart!`);
 }
 
+
 //  Update Cart Count 
 function updateCartCount() {
   const cart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -115,6 +151,7 @@ function updateCartCount() {
   const elem = document.getElementById('cart-count');
   if (elem) elem.textContent = count;
 }
+
 
 //  Render Cart
 function renderCart() {
@@ -137,7 +174,9 @@ function renderCart() {
     const el = document.createElement('div');
     el.className = 'flex items-center bg-white p-4 rounded shadow';
     el.innerHTML = `
-      <img src="${item.image}" onerror="this.src='https://i.imgur.com/QkIa5tT.jpeg'" alt="${item.title}" class="w-16 h-16 object-cover rounded">
+      <img src="${item.image}" 
+           onerror="this.src='https://i.imgur.com/QkIa5tT.jpeg'" 
+           alt="${item.title}" class="w-16 h-16 object-cover rounded">
       <div class="ml-4 flex-1">
         <h3 class="font-semibold">${item.title}</h3>
         <p>$${item.price}</p>
@@ -149,6 +188,7 @@ function renderCart() {
   totalEl.textContent = total.toFixed(2);
 }
 
+
 // Remove from Cart
 function removeFromCart(index) {
   let cart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -157,6 +197,7 @@ function removeFromCart(index) {
   renderCart();
   updateCartCount();
 }
+
 
 // Render Checkout 
 function renderCheckout() {
